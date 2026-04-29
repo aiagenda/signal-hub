@@ -5,26 +5,26 @@ import { contentItems } from "@/lib/mock-data";
 import { Sparkles, Eye, Check, Send } from "lucide-react";
 
 export const Route = createFileRoute("/admin/edition-builder")({
-  head: () => ({ meta: [{ title: "Edition Builder — Admin" }] }),
+  head: () => ({ meta: [{ title: "Kiadás-szerkesztő — Admin" }] }),
   component: BuilderPage,
 });
 
 const sectionMap = [
-  { key: "Global AI", title: "Global AI Signal" },
-  { key: "Tool Radar", title: "Tool Radar" },
-  { key: "Budapest Business", title: "Builder Angle / Budapest" },
-  { key: "Budapest Tech", title: "Budapest Tech & Business" },
-  { key: "Weekend", title: "Weekend Signal" },
+  { key: "Globális MI", title: "Globális MI jel" },
+  { key: "Eszköz-radar", title: "Eszköz-radar" },
+  { key: "Budapesti üzlet", title: "Építő-szemszög / Budapest" },
+  { key: "Budapesti tech", title: "Budapesti tech & üzlet" },
+  { key: "Hétvége", title: "Hétvégi jel" },
 ];
 
 function BuilderPage() {
   return (
-    <AdminLayout title="Edition Builder" subtitle="Edition № 025 · draft for Wed 03 May">
+    <AdminLayout title="Kiadás-szerkesztő" subtitle="№ 025. kiadás · vázlat — szerda, május 3.">
       <div className="mb-6 flex flex-wrap gap-2">
-        <Button variant="signal" size="sm"><Sparkles className="mr-1 h-4 w-4" /> Generate draft</Button>
-        <Button variant="outline" size="sm"><Eye className="mr-1 h-4 w-4" /> Preview</Button>
-        <Button variant="outline" size="sm"><Check className="mr-1 h-4 w-4" /> Mark ready</Button>
-        <Button variant="outline" size="sm"><Send className="mr-1 h-4 w-4" /> Publish</Button>
+        <Button variant="signal" size="sm"><Sparkles className="mr-1 h-4 w-4" /> Vázlat generálása</Button>
+        <Button variant="outline" size="sm"><Eye className="mr-1 h-4 w-4" /> Előnézet</Button>
+        <Button variant="outline" size="sm"><Check className="mr-1 h-4 w-4" /> Kész jelölés</Button>
+        <Button variant="outline" size="sm"><Send className="mr-1 h-4 w-4" /> Publikálás</Button>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
@@ -34,11 +34,11 @@ function BuilderPage() {
             <div key={sec.key} className="rounded-2xl border border-border/60 bg-card-gradient p-6 shadow-card">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display text-lg">{sec.title}</h3>
-                <span className="text-xs text-muted-foreground">{items.length} item{items.length === 1 ? "" : "s"}</span>
+                <span className="text-xs text-muted-foreground">{items.length} tétel</span>
               </div>
               {items.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-border/60 p-6 text-center text-sm text-muted-foreground">
-                  Drag approved items here
+                  Húzd ide a jóváhagyott tételeket
                 </div>
               ) : (
                 <ul className="flex flex-col gap-2">

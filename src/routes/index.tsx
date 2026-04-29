@@ -13,20 +13,20 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Budapest Signal — Global AI. Local moves. Budapest weekends." },
-      { name: "description", content: "A weekly signal for people who want to stay ahead globally and move smarter locally." },
+      { title: "Budapest Signal — Globális MI. Helyi lépések. Budapesti hétvégék." },
+      { name: "description", content: "Heti jel azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni." },
     ],
   }),
   component: Home,
 });
 
 const sections = [
-  { icon: Globe2, label: "01", title: "Global AI Signal", description: "The week's most important model, policy and platform moves — distilled to what changes your roadmap." },
-  { icon: Wrench, label: "02", title: "Tool Radar", description: "The tools shipping right now that are actually worth your evaluation hour." },
-  { icon: Lightbulb, label: "03", title: "Builder Angle", description: "A short, opinionated take from operators building in CEE — pricing, hiring, GTM." },
-  { icon: Building2, label: "04", title: "Budapest Tech & Business", description: "Funding rounds, hires, openings and quiet moves you won't catch on your timeline." },
-  { icon: MapPin, label: "05", title: "Weekend Signal", description: "Curated picks across Budapest and Pest county. Where to actually go, not what tops a list." },
-  { icon: Sparkles, label: "06", title: "Featured Partners", description: "A handful of companies we trust, presented with editorial respect — never sponsored noise." },
+  { icon: Globe2, label: "01", title: "Globális MI jel", description: "A hét legfontosabb modell-, szabályozási és platform-mozgásai — leszűrve arra, ami megváltoztatja a roadmapedet." },
+  { icon: Wrench, label: "02", title: "Eszköz-radar", description: "Az éppen érkező eszközök, amelyek tényleg megérnek egy értékelési órát." },
+  { icon: Lightbulb, label: "03", title: "Építő-szemszög", description: "Egy rövid, véleményes elemzés CEE-ben építő operátoroktól — árazás, toborzás, GTM." },
+  { icon: Building2, label: "04", title: "Budapesti tech & üzlet", description: "Finanszírozási körök, kinevezések, nyitások és csendes lépések, amiket nem fogsz elcsípni a timelineodon." },
+  { icon: MapPin, label: "05", title: "Hétvégi jel", description: "Kurált tippek Budapest és Pest megye területéről. Hová érdemes ténylegesen elmenni." },
+  { icon: Sparkles, label: "06", title: "Kiemelt partnerek", description: "Pár cég, amiben bízunk — szerkesztői tisztelettel bemutatva, sosem szponzorált zaj." },
 ];
 
 function Home() {
@@ -42,17 +42,17 @@ function Home() {
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-20 md:pt-32">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <Radio className="h-3 w-3 text-signal animate-pulse-signal" />
-            <span>Edition № {String(featured.number).padStart(3, "0")} just shipped</span>
+            <span>Megjelent a № {String(featured.number).padStart(3, "0")}. kiadás</span>
           </div>
 
           <h1 className="mt-7 max-w-4xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-            Global AI.{" "}
-            <span className="text-muted-foreground">Local moves.</span>{" "}
-            <span className="text-gradient-signal">Budapest weekends.</span>
+            Globális MI.{" "}
+            <span className="text-muted-foreground">Helyi lépések.</span>{" "}
+            <span className="text-gradient-signal">Budapesti hétvégék.</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            A weekly signal for people who want to stay ahead globally and move smarter locally — AI, tech, business, events and curated weekend picks from Budapest and beyond.
+            Heti jel azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni — MI, tech, üzlet, események és kurált hétvégi tippek Budapestről és környékéről.
           </p>
 
           <div className="mt-9">
@@ -60,10 +60,10 @@ function Home() {
           </div>
 
           <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-muted-foreground">
-            <Stat value="8,420" label="Readers" />
-            <Stat value="62%" label="Open rate" />
-            <Stat value="Wed 07:00" label="In your inbox" />
-            <Stat value="Budapest" label="Curated from" />
+            <Stat value="8 420" label="Olvasó" />
+            <Stat value="62%" label="Megnyitási arány" />
+            <Stat value="Sze 07:00" label="A postaládádban" />
+            <Stat value="Budapest" label="Innen kuráljuk" />
           </div>
         </div>
       </section>
@@ -71,7 +71,7 @@ function Home() {
       {/* WHAT YOU GET */}
       <section className="border-b border-border/50 py-24">
         <div className="mx-auto max-w-6xl px-5">
-          <Header2 eyebrow="What you get" title="Six signals. One sharp briefing." />
+          <Header2 eyebrow="Mit kapsz" title="Hat jel. Egy éles briefing." />
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {sections.map((s) => <SectionCard key={s.title} {...s} />)}
           </div>
@@ -82,10 +82,10 @@ function Home() {
       <section className="border-b border-border/50 py-24">
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <Header2 eyebrow="Latest edition" title="A look inside this week." />
+            <Header2 eyebrow="Legfrissebb kiadás" title="Egy pillantás erre a hétre." />
             <Button asChild variant="outline">
               <Link to="/archive/$slug" params={{ slug: featured.slug }}>
-                Read the full edition <ArrowRight className="ml-1 h-4 w-4" />
+                Teljes kiadás <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -114,14 +114,14 @@ function Home() {
       {/* AUDIENCE */}
       <section className="border-b border-border/50 py-24">
         <div className="mx-auto max-w-5xl px-5 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Built for</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Kiknek</p>
           <h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
-            Founders, builders, marketers, creators, expats and the
-            <span className="text-muted-foreground"> curious people </span>
-            shaping Budapest.
+            Alapítók, építők, marketingesek, alkotók, expatok és a
+            <span className="text-muted-foreground"> kíváncsi emberek, </span>
+            akik Budapestet alakítják.
           </h2>
           <div className="mt-10 flex flex-wrap justify-center gap-2">
-            {["Founders", "Engineers", "PMs", "Marketers", "Designers", "Investors", "Expats", "Curators", "Operators"].map((t) => (
+            {["Alapítók", "Mérnökök", "Termékmenedzserek", "Marketingesek", "Designerek", "Befektetők", "Expatok", "Kurátorok", "Operátorok"].map((t) => (
               <span key={t} className="rounded-full border border-border/60 bg-card/40 px-4 py-1.5 text-sm text-foreground/80 backdrop-blur">
                 {t}
               </span>
@@ -137,17 +137,17 @@ function Home() {
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-signal/20 blur-3xl" />
             <div className="relative grid gap-8 md:grid-cols-[1.4fr_1fr] md:items-center">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">For partners</p>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Partnereknek</p>
                 <h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
-                  Reach Budapest's AI, tech and business-minded audience.
+                  Érd el Budapest MI-, tech- és üzleti közönségét.
                 </h2>
                 <p className="mt-4 max-w-xl text-muted-foreground">
-                  Native, editorial-grade placements inside a briefing people actually open. No banners, no bait — just respect for the reader and your brand.
+                  Natív, szerkesztői színvonalú elhelyezések egy briefingben, amit az emberek tényleg megnyitnak. Nincs banner, nincs csalogató — csak tisztelet az olvasó és a márkád iránt.
                 </p>
               </div>
               <div className="flex md:justify-end">
                 <Button asChild size="lg" variant="signal">
-                  <Link to="/advertise">Advertise with us <ArrowRight className="ml-1 h-4 w-4" /></Link>
+                  <Link to="/advertise">Hirdess nálunk <ArrowRight className="ml-1 h-4 w-4" /></Link>
                 </Button>
               </div>
             </div>

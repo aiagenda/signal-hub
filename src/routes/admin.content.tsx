@@ -5,30 +5,37 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { contentItems } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/admin/content")({
-  head: () => ({ meta: [{ title: "Content Items — Admin" }] }),
+  head: () => ({ meta: [{ title: "Tartalmak — Admin" }] }),
   component: ContentPage,
 });
 
-const categories = ["All", ...Array.from(new Set(contentItems.map((i) => i.category)))];
-const statuses = ["All", "approved", "review", "draft", "rejected"];
+const categories = ["Mind", ...Array.from(new Set(contentItems.map((i) => i.category)))];
+const statuses = ["Mind", "approved", "review", "draft", "rejected"];
+const statusLabels: Record<string, string> = {
+  Mind: "Mind",
+  approved: "Jóváhagyva",
+  review: "Ellenőrzés",
+  draft: "Vázlat",
+  rejected: "Elutasítva",
+};
 
 function ContentPage() {
-  const [cat, setCat] = useState("All");
-  const [status, setStatus] = useState("All");
+  const [cat, setCat] = useState("Mind");
+  const [status, setStatus] = useState("Mind");
 
   const filtered = useMemo(
     () => contentItems.filter(
-      (i) => (cat === "All" || i.category === cat) && (status === "All" || i.status === status)
+      (i) => (cat === "Mind" || i.category === cat) && (status === "Mind" || i.status === status)
     ),
     [cat, status]
   );
 
   return (
-    <AdminLayout title="Content items" subtitle="Everything the agents pulled this cycle.">
+    <AdminLayout title="Tartalmak" subtitle="Mindaz, amit az ügynökök ebben a ciklusban behoztak.">
       <div className="mb-5 flex flex-wrap gap-3">
-        <Filter label="Category" value={cat} options={categories} onChange={setCat} />
-        <Filter label="Status" value={status} options={statuses} onChange={setStatus} />
-        <span className="ml-auto self-end text-xs text-muted-foreground">{filtered.length} items</span>
+        <Filter label="Kategória" value={cat} options={categories} onChange={setCat} />
+        <Filter label="Állapot" value={status} options={statuses} onChange={setStatus} renderOption={(o) => statusLabels[o] ?? o} />
+        <span className="ml-auto self-end text-xs text-muted-foreground">{filtered.length} tétel</span>
       </div>
 
       <div className="grid gap-3">
@@ -39,7 +46,7 @@ function ContentPage() {
               <div className="mt-0.5 text-xs text-muted-foreground">{i.category} · {i.source}</div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs text-muted-foreground">score</span>
+              <span className="font-mono text-xs text-muted-foreground">pont</span>
               <span className="font-mono text-base text-signal">{i.score}</span>
             </div>
             <StatusBadge status={i.status} />
@@ -50,7 +57,12 @@ function ContentPage() {
   );
 }
 
-function Filter({ label, value, options, onChange }: { label: string; value: string; options: string[]; onChange: (v: string) => void }) {
+function Filter({
+  label, value, options, onChange, renderOption,
+}: {
+  label: string; value: string; options: string[]; onChange: (v: string) => void;
+  renderOption?: (o: string) => string;
+}) {
   return (
     <div className="flex items-center gap-2 rounded-lg border border-border/60 bg-card/40 px-3 py-1.5 text-xs">
       <span className="uppercase tracking-widest text-muted-foreground">{label}</span>
@@ -59,7 +71,7 @@ function Filter({ label, value, options, onChange }: { label: string; value: str
         onChange={(e) => onChange(e.target.value)}
         className="bg-transparent text-sm text-foreground focus:outline-none"
       >
-        {options.map((o) => <option key={o} value={o} className="bg-background">{o}</option>)}
+        {options.map((o) => <option key={o} value={o} className="bg-background">{renderOption ? renderOption(o) : o}</option>)}
       </select>
     </div>
   );

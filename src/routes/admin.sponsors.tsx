@@ -4,22 +4,22 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { sponsors } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/admin/sponsors")({
-  head: () => ({ meta: [{ title: "Sponsors — Admin" }] }),
+  head: () => ({ meta: [{ title: "Szponzorok — Admin" }] }),
   component: SponsorsPage,
 });
 
 function SponsorsPage() {
   return (
-    <AdminLayout title="Sponsors" subtitle="Leads, partners and active campaigns.">
+    <AdminLayout title="Szponzorok" subtitle="Érdeklődők, partnerek és aktív kampányok.">
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card-gradient shadow-card">
         <table className="w-full text-sm">
           <thead className="border-b border-border/50 bg-muted/30 text-left text-xs uppercase tracking-widest text-muted-foreground">
             <tr>
-              <th className="px-5 py-3 font-medium">Company</th>
-              <th className="px-5 py-3 font-medium">Contact</th>
-              <th className="px-5 py-3 font-medium">Email</th>
-              <th className="px-5 py-3 font-medium">Tier</th>
-              <th className="px-5 py-3 font-medium">Status</th>
+              <th className="px-5 py-3 font-medium">Cég</th>
+              <th className="px-5 py-3 font-medium">Kapcsolattartó</th>
+              <th className="px-5 py-3 font-medium">E-mail</th>
+              <th className="px-5 py-3 font-medium">Csomag</th>
+              <th className="px-5 py-3 font-medium">Állapot</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/40">

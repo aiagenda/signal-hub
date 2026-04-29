@@ -25,8 +25,8 @@ export const Route = createFileRoute("/archive/$slug")({
   notFoundComponent: () => (
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
-        <p className="font-mono text-xs uppercase tracking-widest text-signal">Edition not found</p>
-        <Link to="/archive" className="mt-4 inline-block text-foreground underline">Back to archive</Link>
+        <p className="font-mono text-xs uppercase tracking-widest text-signal">Kiadás nem található</p>
+        <Link to="/archive" className="mt-4 inline-block text-foreground underline">Vissza az archívumba</Link>
       </div>
     </div>
   ),
@@ -34,8 +34,8 @@ export const Route = createFileRoute("/archive/$slug")({
 
 function EditionDetail() {
   const { edition } = Route.useLoaderData();
-  const date = new Date(edition.date).toLocaleDateString("en-GB", {
-    weekday: "long", day: "numeric", month: "long", year: "numeric",
+  const date = new Date(edition.date).toLocaleDateString("hu-HU", {
+    weekday: "long", year: "numeric", month: "long", day: "numeric",
   });
 
   return (
@@ -45,7 +45,7 @@ function EditionDetail() {
       <article className="border-b border-border/50">
         <div className="mx-auto max-w-3xl px-5 py-16">
           <Link to="/archive" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> All editions
+            <ArrowLeft className="h-4 w-4" /> Összes kiadás
           </Link>
 
           <div className="mt-8 flex items-center gap-3 text-xs">
@@ -100,8 +100,8 @@ function EditionDetail() {
         </div>
 
         <div className="mt-20 rounded-2xl border border-signal/30 bg-card-gradient p-8 text-center shadow-glow">
-          <h3 className="font-display text-2xl">Get the next signal in your inbox.</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Wednesdays at 07:00 CET. One briefing. No noise.</p>
+          <h3 className="font-display text-2xl">Kapd meg a következő jelet a postaládádba.</h3>
+          <p className="mt-2 text-sm text-muted-foreground">Szerdánként 07:00 CET. Egy briefing. Nincs zaj.</p>
           <div className="mt-5 flex justify-center"><SubscribeForm compact /></div>
         </div>
       </div>
