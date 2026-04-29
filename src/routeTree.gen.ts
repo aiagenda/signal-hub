@@ -13,7 +13,13 @@ import { Route as AdvertiseRouteImport } from './routes/advertise'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArchiveIndexRouteImport } from './routes/archive.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ArchiveSlugRouteImport } from './routes/archive.$slug'
+import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
+import { Route as AdminSourcesRouteImport } from './routes/admin.sources'
+import { Route as AdminEditionBuilderRouteImport } from './routes/admin.edition-builder'
+import { Route as AdminContentRouteImport } from './routes/admin.content'
+import { Route as AdminAgentRunsRouteImport } from './routes/admin.agent-runs'
 
 const AdvertiseRoute = AdvertiseRouteImport.update({
   id: '/advertise',
@@ -35,9 +41,39 @@ const ArchiveIndexRoute = ArchiveIndexRouteImport.update({
   path: '/archive/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArchiveSlugRoute = ArchiveSlugRouteImport.update({
   id: '/archive/$slug',
   path: '/archive/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
+  id: '/admin/sponsors',
+  path: '/admin/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSourcesRoute = AdminSourcesRouteImport.update({
+  id: '/admin/sources',
+  path: '/admin/sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEditionBuilderRoute = AdminEditionBuilderRouteImport.update({
+  id: '/admin/edition-builder',
+  path: '/admin/edition-builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentRoute = AdminContentRouteImport.update({
+  id: '/admin/content',
+  path: '/admin/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAgentRunsRoute = AdminAgentRunsRouteImport.update({
+  id: '/admin/agent-runs',
+  path: '/admin/agent-runs',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -45,14 +81,26 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/sources': typeof AdminSourcesRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/sources': typeof AdminSourcesRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/archive': typeof ArchiveIndexRoute
 }
 export interface FileRoutesById {
@@ -60,20 +108,54 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/content': typeof AdminContentRoute
+  '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/sources': typeof AdminSourcesRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/advertise' | '/archive/$slug' | '/archive/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/advertise'
+    | '/admin/agent-runs'
+    | '/admin/content'
+    | '/admin/edition-builder'
+    | '/admin/sources'
+    | '/admin/sponsors'
+    | '/archive/$slug'
+    | '/admin/'
+    | '/archive/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/advertise' | '/archive/$slug' | '/archive'
+  to:
+    | '/'
+    | '/about'
+    | '/advertise'
+    | '/admin/agent-runs'
+    | '/admin/content'
+    | '/admin/edition-builder'
+    | '/admin/sources'
+    | '/admin/sponsors'
+    | '/archive/$slug'
+    | '/admin'
+    | '/archive'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/advertise'
+    | '/admin/agent-runs'
+    | '/admin/content'
+    | '/admin/edition-builder'
+    | '/admin/sources'
+    | '/admin/sponsors'
     | '/archive/$slug'
+    | '/admin/'
     | '/archive/'
   fileRoutesById: FileRoutesById
 }
@@ -81,7 +163,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdvertiseRoute: typeof AdvertiseRoute
+  AdminAgentRunsRoute: typeof AdminAgentRunsRoute
+  AdminContentRoute: typeof AdminContentRoute
+  AdminEditionBuilderRoute: typeof AdminEditionBuilderRoute
+  AdminSourcesRoute: typeof AdminSourcesRoute
+  AdminSponsorsRoute: typeof AdminSponsorsRoute
   ArchiveSlugRoute: typeof ArchiveSlugRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   ArchiveIndexRoute: typeof ArchiveIndexRoute
 }
 
@@ -115,11 +203,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArchiveIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/archive/$slug': {
       id: '/archive/$slug'
       path: '/archive/$slug'
       fullPath: '/archive/$slug'
       preLoaderRoute: typeof ArchiveSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/sponsors': {
+      id: '/admin/sponsors'
+      path: '/admin/sponsors'
+      fullPath: '/admin/sponsors'
+      preLoaderRoute: typeof AdminSponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/sources': {
+      id: '/admin/sources'
+      path: '/admin/sources'
+      fullPath: '/admin/sources'
+      preLoaderRoute: typeof AdminSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/edition-builder': {
+      id: '/admin/edition-builder'
+      path: '/admin/edition-builder'
+      fullPath: '/admin/edition-builder'
+      preLoaderRoute: typeof AdminEditionBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/content': {
+      id: '/admin/content'
+      path: '/admin/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof AdminContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/agent-runs': {
+      id: '/admin/agent-runs'
+      path: '/admin/agent-runs'
+      fullPath: '/admin/agent-runs'
+      preLoaderRoute: typeof AdminAgentRunsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -129,7 +259,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdvertiseRoute: AdvertiseRoute,
+  AdminAgentRunsRoute: AdminAgentRunsRoute,
+  AdminContentRoute: AdminContentRoute,
+  AdminEditionBuilderRoute: AdminEditionBuilderRoute,
+  AdminSourcesRoute: AdminSourcesRoute,
+  AdminSponsorsRoute: AdminSponsorsRoute,
   ArchiveSlugRoute: ArchiveSlugRoute,
+  AdminIndexRoute: AdminIndexRoute,
   ArchiveIndexRoute: ArchiveIndexRoute,
 }
 export const routeTree = rootRouteImport
