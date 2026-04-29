@@ -7,8 +7,8 @@ import { Bot, Globe2, MapPin, Pencil } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Budapest Signal" },
-      { name: "description", content: "Why Budapest Signal exists, who reads it, and how we curate every edition." },
+      { title: "Rólunk — Budapest Signal" },
+      { name: "description", content: "Miért létezik a Budapest Signal, kik olvassák, és hogyan kuráljuk minden kiadást." },
     ],
   }),
   component: About,
@@ -21,9 +21,9 @@ function About() {
 
       <section className="border-b border-border/50 bg-hero-gradient">
         <div className="mx-auto max-w-3xl px-5 py-24">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">About</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Rólunk</p>
           <h1 className="mt-3 font-display text-5xl leading-tight md:text-6xl">
-            One signal for two timezones — global tech and local Budapest.
+            Egy jel két időzónának — globális tech és helyi Budapest.
           </h1>
         </div>
       </section>
@@ -32,13 +32,13 @@ function About() {
         <div className="mx-auto max-w-3xl px-5">
           <div className="prose prose-invert max-w-none">
             <p className="text-xl leading-relaxed text-foreground/90">
-              Budapest Signal exists because the people building, investing and operating in this city deserve a briefing that respects their time and their context.
+              A Budapest Signal azért létezik, mert az itt építő, befektető és operáló emberek megérdemlik, hogy egy briefing tisztelje az idejüket és a kontextusukat.
             </p>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Most newsletters are either too global (a firehose of model releases with no local meaning) or too local (events listings with no business edge). We do both, in one pass, every Wednesday.
+              A legtöbb hírlevél vagy túl globális (modellbejelentések tűzfala helyi jelentés nélkül), vagy túl lokális (eseménylisták üzleti él nélkül). Mi mindkettőt csináljuk, egyszerre, minden szerdán.
             </p>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              The mix: the global AI and tech moves that change your roadmap, the tools that are actually worth your evaluation hour, the Budapest tech & business news that won't reach your timeline, and a curated weekend signal so your Saturday isn't another scroll through Google Maps.
+              A keverék: a globális MI- és tech-mozgások, amelyek megváltoztatják a roadmapedet, az eszközök, amelyek tényleg megérnek egy órát, a budapesti tech- és üzleti hírek, amelyek nem érnek el a timelineodig, és egy kurált hétvégi jel, hogy a szombatod ne egy újabb Google Maps-görgetés legyen.
             </p>
           </div>
         </div>
@@ -46,22 +46,22 @@ function About() {
 
       <section className="border-b border-border/50 py-20">
         <div className="mx-auto max-w-5xl px-5">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">How we make it</p>
-          <h2 className="mt-3 max-w-2xl font-display text-4xl leading-tight md:text-5xl">Human-curated, AI-assisted.</h2>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Hogyan készül</p>
+          <h2 className="mt-3 max-w-2xl font-display text-4xl leading-tight md:text-5xl">Ember által kurálva, MI-vel támogatva.</h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            <Step icon={Globe2} title="Source" body="Our agents continuously crawl 60+ trusted sources across global tech, Hungarian press, VC databases and local culture publications." />
-            <Step icon={Bot} title="Score" body="Every item is scored for relevance, novelty and signal-to-noise. Junk is dropped before a human ever sees it." />
-            <Step icon={Pencil} title="Edit" body="An editor reviews the shortlist, writes every line, and kills anything that wouldn't earn its place in your inbox." />
-            <Step icon={MapPin} title="Localize" body="The weekend signal is curated by people actually living in Budapest — not pulled from a tourism API." />
+            <Step icon={Globe2} title="Forrás" body="Ügynökeink folyamatosan figyelnek 60+ megbízható forrást a globális tech, a magyar sajtó, a VC-adatbázisok és a helyi kulturális kiadványok területén." />
+            <Step icon={Bot} title="Pontozás" body="Minden tételt relevancia, újdonság és jel-zaj arány alapján pontozunk. A szemét még azelőtt kihullik, hogy ember látná." />
+            <Step icon={Pencil} title="Szerkesztés" body="Egy szerkesztő átnézi a shortlistet, megírja minden sort, és kihúzza, ami nem érdemelné meg a helyét a postaládádban." />
+            <Step icon={MapPin} title="Lokalizálás" body="A hétvégi jelet ténylegesen Budapesten élő emberek kurálják — nem turisztikai API-ból." />
           </div>
         </div>
       </section>
 
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-5 text-center">
-          <h2 className="font-display text-3xl">Read the next edition.</h2>
-          <p className="mt-3 text-muted-foreground">Wednesday, 07:00 CET. One briefing. No noise.</p>
+          <h2 className="font-display text-3xl">Olvasd a következő kiadást.</h2>
+          <p className="mt-3 text-muted-foreground">Szerda, 07:00 CET. Egy briefing. Nincs zaj.</p>
           <div className="mt-6 flex justify-center"><SubscribeForm compact /></div>
         </div>
       </section>

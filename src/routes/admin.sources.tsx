@@ -6,25 +6,25 @@ import { sources } from "@/lib/mock-data";
 import { Plus, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/admin/sources")({
-  head: () => ({ meta: [{ title: "Sources — Admin" }] }),
+  head: () => ({ meta: [{ title: "Források — Admin" }] }),
   component: SourcesPage,
 });
 
 function SourcesPage() {
   return (
-    <AdminLayout title="Sources" subtitle="Where the signal comes from.">
+    <AdminLayout title="Források" subtitle="Honnan jön a jel.">
       <div className="mb-5 flex justify-end">
-        <Button variant="signal" size="sm"><Plus className="mr-1 h-4 w-4" /> Add source</Button>
+        <Button variant="signal" size="sm"><Plus className="mr-1 h-4 w-4" /> Új forrás</Button>
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-border/60 bg-card-gradient shadow-card">
         <table className="w-full text-sm">
           <thead className="border-b border-border/50 bg-muted/30 text-left text-xs uppercase tracking-widest text-muted-foreground">
             <tr>
-              <th className="px-5 py-3 font-medium">Name</th>
+              <th className="px-5 py-3 font-medium">Név</th>
               <th className="px-5 py-3 font-medium">URL</th>
-              <th className="px-5 py-3 font-medium">Category</th>
-              <th className="px-5 py-3 font-medium">Status</th>
+              <th className="px-5 py-3 font-medium">Kategória</th>
+              <th className="px-5 py-3 font-medium">Állapot</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/40">

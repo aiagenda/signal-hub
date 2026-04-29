@@ -16,7 +16,7 @@ export function SponsorPricingCard({
     >
       {highlight && (
         <span className="absolute -top-3 left-7 rounded-full bg-signal-gradient px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-signal-foreground">
-          Most picked
+          Legnépszerűbb
         </span>
       )}
       <h3 className="font-display text-xl text-foreground">{name}</h3>
@@ -34,7 +34,7 @@ export function SponsorPricingCard({
         ))}
       </ul>
       <Button asChild variant={highlight ? "signal" : "outline"} className="mt-7">
-        <a href="#lead">Talk to us</a>
+        <a href="#lead">Beszéljünk</a>
       </Button>
     </div>
   );

@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { to: "/archive", label: "Archive" },
-  { to: "/advertise", label: "Advertise" },
-  { to: "/about", label: "About" },
+  { to: "/archive", label: "Archívum" },
+  { to: "/advertise", label: "Hirdetés" },
+  { to: "/about", label: "Rólunk" },
 ];
 
 export function Header() {
@@ -31,19 +32,23 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <Button asChild size="sm" variant="signal">
-            <Link to="/" hash="subscribe">Subscribe</Link>
+            <Link to="/" hash="subscribe">Feliratkozás</Link>
           </Button>
         </div>
 
-        <button
-          onClick={() => setOpen((s) => !s)}
-          className="md:hidden rounded-md p-2 text-muted-foreground hover:bg-muted"
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen((s) => !s)}
+            className="rounded-md p-2 text-muted-foreground hover:bg-muted"
+            aria-label="Menü"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -60,7 +65,7 @@ export function Header() {
               </Link>
             ))}
             <Button asChild size="sm" variant="signal" className="mt-2">
-              <Link to="/" hash="subscribe" onClick={() => setOpen(false)}>Subscribe</Link>
+              <Link to="/" hash="subscribe" onClick={() => setOpen(false)}>Feliratkozás</Link>
             </Button>
           </div>
         </div>
