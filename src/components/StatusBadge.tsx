@@ -1,25 +1,25 @@
-const map: Record<string, string> = {
-  active: "bg-success/15 text-success border-success/30",
-  success: "bg-success/15 text-success border-success/30",
-  approved: "bg-success/15 text-success border-success/30",
-  won: "bg-success/15 text-success border-success/30",
-  running: "bg-signal/15 text-signal border-signal/30",
-  review: "bg-warning/15 text-warning border-warning/30",
-  negotiating: "bg-warning/15 text-warning border-warning/30",
-  draft: "bg-muted text-muted-foreground border-border",
-  queued: "bg-muted text-muted-foreground border-border",
-  lead: "bg-muted text-muted-foreground border-border",
-  rejected: "bg-destructive/15 text-destructive border-destructive/30",
-  lost: "bg-destructive/15 text-destructive border-destructive/30",
-  inactive: "bg-muted text-muted-foreground border-border",
+const map: Record<string, { cls: string; label: string }> = {
+  active: { cls: "bg-success/15 text-success border-success/30", label: "aktív" },
+  success: { cls: "bg-success/15 text-success border-success/30", label: "siker" },
+  approved: { cls: "bg-success/15 text-success border-success/30", label: "jóváhagyva" },
+  won: { cls: "bg-success/15 text-success border-success/30", label: "megnyerve" },
+  running: { cls: "bg-signal/15 text-signal border-signal/30", label: "fut" },
+  review: { cls: "bg-warning/15 text-warning border-warning/30", label: "ellenőrzés" },
+  negotiating: { cls: "bg-warning/15 text-warning border-warning/30", label: "tárgyalás" },
+  draft: { cls: "bg-muted text-muted-foreground border-border", label: "vázlat" },
+  queued: { cls: "bg-muted text-muted-foreground border-border", label: "sorban" },
+  lead: { cls: "bg-muted text-muted-foreground border-border", label: "érdeklődő" },
+  rejected: { cls: "bg-destructive/15 text-destructive border-destructive/30", label: "elutasítva" },
+  lost: { cls: "bg-destructive/15 text-destructive border-destructive/30", label: "elveszett" },
+  inactive: { cls: "bg-muted text-muted-foreground border-border", label: "inaktív" },
 };
 
 export function StatusBadge({ status }: { status: string }) {
-  const cls = map[status.toLowerCase()] ?? map.draft;
+  const entry = map[status.toLowerCase()] ?? map.draft;
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium capitalize ${cls}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${entry.cls}`}>
       <span className="h-1.5 w-1.5 rounded-full bg-current" />
-      {status}
+      {entry.label}
     </span>
   );
 }

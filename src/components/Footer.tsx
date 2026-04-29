@@ -8,30 +8,30 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            A weekly briefing for people who want to stay ahead globally and move smarter locally — from Budapest, for everyone who lives, works or builds here.
+            Heti briefing azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni — Budapestről, mindenkinek, aki itt él, dolgozik vagy épít.
           </p>
         </div>
 
-        <FooterCol title="Read">
-          <FooterLink to="/archive">Archive</FooterLink>
-          <FooterLink to="/about">About</FooterLink>
+        <FooterCol title="Olvasás">
+          <FooterLink to="/archive">Archívum</FooterLink>
+          <FooterLink to="/about">Rólunk</FooterLink>
         </FooterCol>
 
         <FooterCol title="Partner">
-          <FooterLink to="/advertise">Advertise</FooterLink>
-          <FooterLink to="/advertise" hash="lead">Become a partner</FooterLink>
+          <FooterLink to="/advertise">Hirdetés</FooterLink>
+          <FooterLink to="/advertise" hash="lead">Legyél partner</FooterLink>
         </FooterCol>
 
-        <FooterCol title="Internal">
+        <FooterCol title="Belső">
           <FooterLink to="/admin">Admin</FooterLink>
-          <FooterLink to="/admin/edition-builder">Edition builder</FooterLink>
+          <FooterLink to="/admin/edition-builder">Kiadás-szerkesztő</FooterLink>
         </FooterCol>
       </div>
 
       <div className="border-t border-border/50">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Budapest Signal. Curated in Budapest, read everywhere.</p>
-          <p className="font-mono">v1.0 · weekly · Wednesdays 07:00 CET</p>
+          <p>© {new Date().getFullYear()} Budapest Signal. Budapesten kurálva, mindenhol olvasva.</p>
+          <p className="font-mono">v1.0 · heti · szerda 07:00 CET</p>
         </div>
       </div>
     </footer>

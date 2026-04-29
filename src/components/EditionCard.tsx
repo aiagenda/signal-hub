@@ -3,8 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import type { Edition } from "@/lib/mock-data";
 
 export function EditionCard({ edition }: { edition: Edition }) {
-  const date = new Date(edition.date).toLocaleDateString("en-GB", {
-    day: "numeric", month: "short", year: "numeric",
+  const date = new Date(edition.date).toLocaleDateString("hu-HU", {
+    year: "numeric", month: "long", day: "numeric",
   });
 
   return (
@@ -40,7 +40,7 @@ export function EditionCard({ edition }: { edition: Edition }) {
           ))}
         </div>
         <span className="inline-flex items-center gap-1 text-sm font-medium text-foreground">
-          Read
+          Olvasom
           <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>

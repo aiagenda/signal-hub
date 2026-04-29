@@ -12,7 +12,7 @@ export function Logo({ className = "" }: { className?: string }) {
           Budapest <span className="text-gradient-signal">Signal</span>
         </span>
         <span className="mt-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-          Weekly briefing
+          Heti briefing
         </span>
       </span>
     </Link>

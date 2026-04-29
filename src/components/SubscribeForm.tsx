@@ -21,21 +21,21 @@ export function SubscribeForm({ compact = false }: { compact?: boolean }) {
         <Input
           type="email"
           required
-          placeholder="you@studio.com"
+          placeholder="te@studio.hu"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-11 flex-1 border-0 bg-transparent px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0"
         />
         <Button type="submit" variant="signal" size="lg" className="h-11 shrink-0">
           {done ? (
-            <>You're in <Check className="ml-1 h-4 w-4" /></>
+            <>Sikerült <Check className="ml-1 h-4 w-4" /></>
           ) : (
-            <>Get the signal <ArrowRight className="ml-1 h-4 w-4" /></>
+            <>Kérem a jelet <ArrowRight className="ml-1 h-4 w-4" /></>
           )}
         </Button>
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
-        One sharp briefing per week. No noise. Unsubscribe anytime.
+        Heti egy éles briefing. Nincs zaj. Bármikor leiratkozhatsz.
       </p>
     </form>
   );

@@ -1,14 +1,15 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, Database, FileText, Hammer, Megaphone, Activity, ArrowLeft } from "lucide-react";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 
 const items = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/sources", label: "Sources", icon: Database },
-  { to: "/admin/content", label: "Content Items", icon: FileText },
-  { to: "/admin/edition-builder", label: "Edition Builder", icon: Hammer },
-  { to: "/admin/sponsors", label: "Sponsors", icon: Megaphone },
-  { to: "/admin/agent-runs", label: "Agent Runs", icon: Activity },
+  { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, exact: true },
+  { to: "/admin/sources", label: "Források", icon: Database },
+  { to: "/admin/content", label: "Tartalmak", icon: FileText },
+  { to: "/admin/edition-builder", label: "Kiadás-szerkesztő", icon: Hammer },
+  { to: "/admin/sponsors", label: "Szponzorok", icon: Megaphone },
+  { to: "/admin/agent-runs", label: "Ügynök-futások", icon: Activity },
 ];
 
 export function AdminLayout({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
@@ -37,19 +38,23 @@ export function AdminLayout({ title, subtitle, children }: { title: string; subt
             );
           })}
         </nav>
-        <div className="border-t border-border/50 p-3">
-          <Link to="/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-muted hover:text-foreground">
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to site
+        <div className="border-t border-border/50 p-3 flex items-center justify-between gap-2">
+          <Link to="/" className="flex flex-1 items-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-muted hover:text-foreground">
+            <ArrowLeft className="h-3.5 w-3.5" /> Vissza az oldalra
           </Link>
+          <ThemeToggle />
         </div>
       </aside>
 
       <main className="flex-1 overflow-x-hidden">
         <div className="border-b border-border/50 bg-background/60 backdrop-blur">
-          <div className="px-6 py-7 md:px-10">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal">Admin</p>
-            <h1 className="mt-2 font-display text-3xl">{title}</h1>
-            {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+          <div className="px-6 py-7 md:px-10 flex items-start justify-between gap-4">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-signal">Admin</p>
+              <h1 className="mt-2 font-display text-3xl">{title}</h1>
+              {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+            </div>
+            <div className="md:hidden"><ThemeToggle /></div>
           </div>
         </div>
         <div className="px-6 py-8 md:px-10">{children}</div>
