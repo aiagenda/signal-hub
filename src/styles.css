@@ -49,10 +49,71 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+/* ===========================
+   LIGHT MODE (default :root)
+   Editorial paper-white with deep blue ink
+   =========================== */
 :root {
   --radius: 0.875rem;
 
-  /* Dark-first: even light mode keeps deep editorial mood */
+  --background: oklch(0.985 0.004 260);
+  --foreground: oklch(0.18 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 260);
+
+  --primary: oklch(0.22 0.025 260);
+  --primary-foreground: oklch(0.98 0.005 260);
+
+  --secondary: oklch(0.94 0.01 260);
+  --secondary-foreground: oklch(0.22 0.025 260);
+
+  --muted: oklch(0.95 0.008 260);
+  --muted-foreground: oklch(0.46 0.02 260);
+
+  --accent: oklch(0.92 0.04 215);
+  --accent-foreground: oklch(0.22 0.025 260);
+
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(0.98 0.005 260);
+
+  --success: oklch(0.55 0.16 155);
+  --warning: oklch(0.65 0.16 70);
+
+  --border: oklch(0.88 0.01 260);
+  --input: oklch(0.9 0.01 260);
+  --ring: oklch(0.6 0.18 220);
+
+  /* Signal accent — deeper in light mode for contrast */
+  --signal: oklch(0.55 0.18 230);
+  --signal-foreground: oklch(0.99 0.005 260);
+  --signal-muted: oklch(0.55 0.18 230 / 10%);
+
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.55 0.18 230 / 12%), transparent 60%),
+                   radial-gradient(ellipse 60% 50% at 80% 30%, oklch(0.6 0.2 280 / 8%), transparent 60%),
+                   linear-gradient(180deg, oklch(0.98 0.005 260), oklch(0.96 0.006 260));
+  --gradient-signal: linear-gradient(135deg, oklch(0.6 0.16 210), oklch(0.5 0.2 260));
+  --gradient-card: linear-gradient(180deg, oklch(1 0 0 / 90%), oklch(0.98 0.005 260 / 70%));
+
+  --shadow-glow: 0 0 0 1px oklch(0.55 0.18 230 / 18%), 0 20px 60px -20px oklch(0.55 0.18 230 / 25%);
+  --shadow-card: 0 1px 0 oklch(1 0 0 / 60%) inset, 0 12px 32px -16px oklch(0.2 0.02 260 / 18%);
+  --shadow-soft: 0 4px 16px -8px oklch(0.2 0.02 260 / 12%);
+
+  --sidebar: oklch(0.97 0.006 260);
+  --sidebar-foreground: oklch(0.22 0.025 260);
+  --sidebar-primary: oklch(0.55 0.18 230);
+  --sidebar-primary-foreground: oklch(0.99 0.005 260);
+  --sidebar-accent: oklch(0.94 0.01 260);
+  --sidebar-accent-foreground: oklch(0.22 0.025 260);
+  --sidebar-border: oklch(0.88 0.01 260);
+  --sidebar-ring: oklch(0.55 0.18 230);
+}
+
+/* ===========================
+   DARK MODE
+   =========================== */
+.dark {
   --background: oklch(0.16 0.018 260);
   --foreground: oklch(0.97 0.005 260);
   --card: oklch(0.21 0.022 260);
@@ -82,7 +143,6 @@
   --input: oklch(0.3 0.02 260 / 60%);
   --ring: oklch(0.72 0.18 220);
 
-  /* Signal accent — electric blue with green undertone */
   --signal: oklch(0.78 0.18 215);
   --signal-foreground: oklch(0.16 0.018 260);
   --signal-muted: oklch(0.78 0.18 215 / 12%);
@@ -107,11 +167,6 @@
   --sidebar-ring: oklch(0.78 0.18 215);
 }
 
-.dark {
-  --background: oklch(0.16 0.018 260);
-  --foreground: oklch(0.97 0.005 260);
-}
-
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
@@ -121,10 +176,17 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    background-attachment: fixed;
+  }
+  .dark body {
     background-image:
       radial-gradient(ellipse 1200px 600px at 50% -200px, oklch(0.78 0.18 215 / 8%), transparent),
       radial-gradient(ellipse 800px 400px at 100% 10%, oklch(0.7 0.2 280 / 6%), transparent);
-    background-attachment: fixed;
+  }
+  :root:not(.dark) body {
+    background-image:
+      radial-gradient(ellipse 1200px 600px at 50% -200px, oklch(0.55 0.18 230 / 6%), transparent),
+      radial-gradient(ellipse 800px 400px at 100% 10%, oklch(0.6 0.2 280 / 4%), transparent);
   }
   h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; font-weight: 500; }
   ::selection { background: var(--signal); color: var(--signal-foreground); }
@@ -138,10 +200,10 @@
   .shadow-card { box-shadow: var(--shadow-card); }
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .glass {
-    background: oklch(0.22 0.022 260 / 55%);
+    background: color-mix(in oklab, var(--card) 70%, transparent);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid oklch(1 0 0 / 6%);
+    border: 1px solid var(--border);
   }
   .text-gradient-signal {
     background: var(--gradient-signal);
@@ -156,7 +218,7 @@
     opacity: 0.04; pointer-events: none; mix-blend-mode: overlay;
   }
   .dot-grid {
-    background-image: radial-gradient(oklch(1 0 0 / 6%) 1px, transparent 1px);
+    background-image: radial-gradient(color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 }
