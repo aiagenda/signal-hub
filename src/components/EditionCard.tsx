@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import type { Edition } from "@/lib/mock-data";
+import type { Edition } from "@/lib/edition-types";
 
 export function EditionCard({ edition }: { edition: Edition }) {
   const date = new Date(edition.date).toLocaleDateString("hu-HU", {
-    year: "numeric", month: "long", day: "numeric",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   return (

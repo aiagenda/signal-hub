@@ -1,0 +1,65 @@
+# Napi város / program / esemény cikk (+ események szinkron).
+# Repo Variables: CITY_DAILY_PUBLISH=true → --publish-article (quality gate után).
+# CITY_DAILY_SOCIAL_DRAFT=true → social draft táblában.
+# CITY_DAILY_SOCIAL_LIVE=true → social queue webhook (kérd a SOCIAL_* secrets).
+
+name: Daily city brief (events article)
+
+on:
+  schedule:
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: daily-city-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: agents
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: agents/package-lock.json
+
+      - name: Install agents dependencies
+        run: npm ci
+
+      - name: Események frissítése + napi Budapest program-cikk + SEO
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          APP_BASE_URL: ${{ vars.APP_BASE_URL }}
+          PIPELINE_DISABLE_EXTERNAL_POSTS: ${{ vars.PIPELINE_DISABLE_EXTERNAL_POSTS }}
+        run: |
+          set -e
+          FLAGS=""
+          [ "${{ vars.CITY_DAILY_PUBLISH }}" = "true" ] && FLAGS="$FLAGS --publish-article"
+          [ "${{ vars.CITY_DAILY_SOCIAL_DRAFT }}" = "true" ] && FLAGS="$FLAGS --draft-social"
+          npm run write:city-brief -- $FLAGS
+
+      - name: Social queue (optional — webhook)
+        if: ${{ vars.CITY_DAILY_SOCIAL_LIVE == 'true' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          APP_BASE_URL: ${{ vars.APP_BASE_URL }}
+          SOCIAL_POST_DRY_RUN: "false"
+          PIPELINE_DISABLE_EXTERNAL_POSTS: ${{ vars.PIPELINE_DISABLE_EXTERNAL_POSTS }}
+          SOCIAL_WEBHOOK_SECRET: ${{ secrets.SOCIAL_WEBHOOK_SECRET }}
+          SOCIAL_LINKEDIN_WEBHOOK_URL: ${{ secrets.SOCIAL_LINKEDIN_WEBHOOK_URL }}
+          SOCIAL_X_WEBHOOK_URL: ${{ secrets.SOCIAL_X_WEBHOOK_URL }}
+          SOCIAL_FACEBOOK_WEBHOOK_URL: ${{ secrets.SOCIAL_FACEBOOK_WEBHOOK_URL }}
+          SOCIAL_TELEGRAM_WEBHOOK_URL: ${{ secrets.SOCIAL_TELEGRAM_WEBHOOK_URL }}
+        run: npm run social:queue -- --include-drafts --limit=40

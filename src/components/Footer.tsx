@@ -8,7 +8,8 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Heti briefing azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni — Budapestről, mindenkinek, aki itt él, dolgozik vagy épít.
+            Heti briefing azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni
+            — Budapestről, mindenkinek, aki itt él, dolgozik vagy épít.
           </p>
         </div>
 
@@ -19,7 +20,9 @@ export function Footer() {
 
         <FooterCol title="Partner">
           <FooterLink to="/advertise">Hirdetés</FooterLink>
-          <FooterLink to="/advertise" hash="lead">Legyél partner</FooterLink>
+          <FooterLink to="/advertise" hash="lead">
+            Legyél partner
+          </FooterLink>
         </FooterCol>
 
         <FooterCol title="Belső">
@@ -30,8 +33,17 @@ export function Footer() {
 
       <div className="border-t border-border/50">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Budapest Signal. Budapesten kurálva, mindenhol olvasva.</p>
-          <p className="font-mono">v1.0 · heti · szerda 07:00 CET</p>
+          <div className="space-y-2">
+            <p>
+              © {new Date().getFullYear()} Budapest Signal. Budapesten kurálva, mindenhol olvasva.
+            </p>
+            <p className="max-w-xl text-[11px] leading-relaxed opacity-90">
+              Opcionális, anonimizált látogatásmérés (Plausible vagy GA4) csak akkor töltődik be, ha
+              a környezeti változókban bekapcsolod — részletek az „Adat & mérés” szekcióban a Rólunk
+              oldalon.
+            </p>
+          </div>
+          <p className="font-mono shrink-0">v1.0 · heti · szerda 07:00 CET</p>
         </div>
       </div>
     </footer>
@@ -41,16 +53,30 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h4 className="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{title}</h4>
+      <h4 className="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        {title}
+      </h4>
       <ul className="flex flex-col gap-2">{children}</ul>
     </div>
   );
 }
 
-function FooterLink({ to, hash, children }: { to: string; hash?: string; children: React.ReactNode }) {
+function FooterLink({
+  to,
+  hash,
+  children,
+}: {
+  to: string;
+  hash?: string;
+  children: React.ReactNode;
+}) {
   return (
     <li>
-      <Link to={to} hash={hash} className="text-sm text-foreground/80 transition-colors hover:text-signal">
+      <Link
+        to={to}
+        hash={hash}
+        className="text-sm text-foreground/80 transition-colors hover:text-signal"
+      >
         {children}
       </Link>
     </li>

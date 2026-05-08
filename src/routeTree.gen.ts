@@ -9,18 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as AdvertiseRouteImport } from './routes/advertise'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
 import { Route as ArchiveIndexRouteImport } from './routes/archive.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 import { Route as ArchiveSlugRouteImport } from './routes/archive.$slug'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
 import { Route as AdminSourcesRouteImport } from './routes/admin.sources'
+import { Route as AdminPipelineRouteImport } from './routes/admin.pipeline'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminEditionBuilderRouteImport } from './routes/admin.edition-builder'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
+import { Route as AdminArticlesRouteImport } from './routes/admin.articles'
 import { Route as AdminAgentRunsRouteImport } from './routes/admin.agent-runs'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdvertiseRoute = AdvertiseRouteImport.update({
   id: '/advertise',
   path: '/advertise',
@@ -36,6 +53,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArchiveIndexRoute = ArchiveIndexRouteImport.update({
   id: '/archive/',
   path: '/archive/',
@@ -44,6 +66,11 @@ const ArchiveIndexRoute = ArchiveIndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArchiveSlugRoute = ArchiveSlugRouteImport.update({
@@ -61,6 +88,16 @@ const AdminSourcesRoute = AdminSourcesRouteImport.update({
   path: '/admin/sources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPipelineRoute = AdminPipelineRouteImport.update({
+  id: '/admin/pipeline',
+  path: '/admin/pipeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminEditionBuilderRoute = AdminEditionBuilderRouteImport.update({
   id: '/admin/edition-builder',
   path: '/admin/edition-builder',
@@ -69,6 +106,11 @@ const AdminEditionBuilderRoute = AdminEditionBuilderRouteImport.update({
 const AdminContentRoute = AdminContentRouteImport.update({
   id: '/admin/content',
   path: '/admin/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminArticlesRoute = AdminArticlesRouteImport.update({
+  id: '/admin/articles',
+  path: '/admin/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAgentRunsRoute = AdminAgentRunsRouteImport.update({
@@ -81,41 +123,62 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/articles': typeof AdminArticlesRoute
   '/admin/content': typeof AdminContentRoute
   '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pipeline': typeof AdminPipelineRoute
   '/admin/sources': typeof AdminSourcesRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
+  '/articles/': typeof ArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/articles': typeof AdminArticlesRoute
   '/admin/content': typeof AdminContentRoute
   '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pipeline': typeof AdminPipelineRoute
   '/admin/sources': typeof AdminSourcesRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/admin': typeof AdminIndexRoute
   '/archive': typeof ArchiveIndexRoute
+  '/articles': typeof ArticlesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advertise': typeof AdvertiseRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/agent-runs': typeof AdminAgentRunsRoute
+  '/admin/articles': typeof AdminArticlesRoute
   '/admin/content': typeof AdminContentRoute
   '/admin/edition-builder': typeof AdminEditionBuilderRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/pipeline': typeof AdminPipelineRoute
   '/admin/sources': typeof AdminSourcesRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
+  '/articles/': typeof ArticlesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -123,58 +186,100 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/advertise'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/admin/agent-runs'
+    | '/admin/articles'
     | '/admin/content'
     | '/admin/edition-builder'
+    | '/admin/login'
+    | '/admin/pipeline'
     | '/admin/sources'
     | '/admin/sponsors'
     | '/archive/$slug'
+    | '/articles/$slug'
     | '/admin/'
     | '/archive/'
+    | '/articles/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/advertise'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/admin/agent-runs'
+    | '/admin/articles'
     | '/admin/content'
     | '/admin/edition-builder'
+    | '/admin/login'
+    | '/admin/pipeline'
     | '/admin/sources'
     | '/admin/sponsors'
     | '/archive/$slug'
+    | '/articles/$slug'
     | '/admin'
     | '/archive'
+    | '/articles'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/advertise'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/admin/agent-runs'
+    | '/admin/articles'
     | '/admin/content'
     | '/admin/edition-builder'
+    | '/admin/login'
+    | '/admin/pipeline'
     | '/admin/sources'
     | '/admin/sponsors'
     | '/archive/$slug'
+    | '/articles/$slug'
     | '/admin/'
     | '/archive/'
+    | '/articles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdvertiseRoute: typeof AdvertiseRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AdminAgentRunsRoute: typeof AdminAgentRunsRoute
+  AdminArticlesRoute: typeof AdminArticlesRoute
   AdminContentRoute: typeof AdminContentRoute
   AdminEditionBuilderRoute: typeof AdminEditionBuilderRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminPipelineRoute: typeof AdminPipelineRoute
   AdminSourcesRoute: typeof AdminSourcesRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   ArchiveSlugRoute: typeof ArchiveSlugRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ArchiveIndexRoute: typeof ArchiveIndexRoute
+  ArticlesIndexRoute: typeof ArticlesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/advertise': {
       id: '/advertise'
       path: '/advertise'
@@ -196,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/articles/': {
+      id: '/articles/'
+      path: '/articles'
+      fullPath: '/articles/'
+      preLoaderRoute: typeof ArticlesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/archive/': {
       id: '/archive/'
       path: '/archive'
@@ -208,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/archive/$slug': {
@@ -231,6 +350,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/pipeline': {
+      id: '/admin/pipeline'
+      path: '/admin/pipeline'
+      fullPath: '/admin/pipeline'
+      preLoaderRoute: typeof AdminPipelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/edition-builder': {
       id: '/admin/edition-builder'
       path: '/admin/edition-builder'
@@ -243,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/content'
       fullPath: '/admin/content'
       preLoaderRoute: typeof AdminContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/articles': {
+      id: '/admin/articles'
+      path: '/admin/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AdminArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/agent-runs': {
@@ -259,14 +399,21 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdvertiseRoute: AdvertiseRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   AdminAgentRunsRoute: AdminAgentRunsRoute,
+  AdminArticlesRoute: AdminArticlesRoute,
   AdminContentRoute: AdminContentRoute,
   AdminEditionBuilderRoute: AdminEditionBuilderRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminPipelineRoute: AdminPipelineRoute,
   AdminSourcesRoute: AdminSourcesRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   ArchiveSlugRoute: ArchiveSlugRoute,
+  ArticlesSlugRoute: ArticlesSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
   ArchiveIndexRoute: ArchiveIndexRoute,
+  ArticlesIndexRoute: ArticlesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -8,6 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+
+# Local secrets (Vite + tooling)
+.env
+.env.*.local
+
 dist
 dist-ssr
 .output
@@ -19,6 +24,9 @@ dist-ssr
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+
+# Supabase CLI temp files
+supabase/.temp/
 
 # Editor directories and files
 .vscode/*

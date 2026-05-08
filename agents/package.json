@@ -1,0 +1,47 @@
+{
+  "name": "budapest-signal-agents",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "scout:global-ai": "tsx src/workflows/scoutGlobalAI.ts",
+    "scout:rss": "tsx src/workflows/scoutRssCategory.ts",
+    "scout:tool-radar": "tsx src/workflows/scoutRssCategory.ts --category=tool_radar",
+    "scout:builder": "tsx src/workflows/scoutRssCategory.ts --category=builder_insights",
+    "scout:budapest": "tsx src/workflows/scoutRssCategory.ts --category=budapest_events",
+    "scout:weekend": "tsx src/workflows/scoutRssCategory.ts --category=weekend",
+    "scout:all": "tsx src/workflows/scoutAll.ts",
+    "scout:all:parallel": "tsx src/workflows/scoutAll.ts --parallel",
+    "scout:topics": "tsx src/workflows/scoutTopics.ts",
+    "scout:topics:tech": "tsx src/workflows/scoutTopics.ts --categories=global_ai,tool_radar,builder_insights",
+    "agency:tech": "tsx src/workflows/techAgencyCycle.ts",
+    "write:city-brief": "tsx src/workflows/writeDailyCityBrief.ts",
+    "scout:events": "tsx src/workflows/scoutEvents.ts",
+    "write:article": "tsx src/workflows/writeArticleFromTopic.ts",
+    "article:publish": "tsx src/workflows/publishArticle.ts",
+    "social:draft": "tsx src/workflows/draftSocialPosts.ts",
+    "social:queue": "tsx src/workflows/runSocialQueue.ts",
+    "agency:cycle": "tsx src/workflows/fullAgencyCycle.ts",
+    "weekly:pipeline": "tsx src/workflows/weeklyPipeline.ts",
+    "send:newsletter": "tsx src/workflows/sendNewsletter.ts",
+    "draft:edition": "tsx src/workflows/draftWeeklyEdition.ts",
+    "sales:prepare-leads": "tsx src/workflows/salesPrepareLeads.ts",
+    "style:scout": "tsx src/workflows/styleScout.ts",
+    "style:distill": "tsx src/workflows/styleDistill.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "dotenv": "^16.4.7",
+    "openai": "^4.85.1",
+    "resend": "^4.8.0",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}

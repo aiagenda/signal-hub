@@ -1,8 +1,14 @@
 import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { AnalyticsScripts } from "@/components/AnalyticsScripts";
+import { Toaster } from "@/components/ui/sonner";
+import { getOgImageAbsoluteUrl, getPublicSiteUrl } from "@/lib/public-env";
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem('bps-theme');if(!t){t='dark';}if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
+
+const ogImage = getOgImageAbsoluteUrl();
+const siteUrl = getPublicSiteUrl();
 
 export const Route = createRootRoute({
   head: () => ({
@@ -20,9 +26,15 @@ export const Route = createRootRoute({
       { property: "og:description", content: "Globális MI. Helyi lépések. Budapesti hétvégék." },
       { property: "og:locale", content: "hu_HU" },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: siteUrl },
+      { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: ogImage },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: siteUrl },
+    ],
     scripts: [{ children: themeInitScript }],
   }),
   shellComponent: RootShell,
@@ -32,7 +44,8 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="hu">
+    // Theme script (head) toggles `dark` on <html> before hydration — suppress mismatch warning.
+    <html lang="hu" suppressHydrationWarning>
       <head>
         <HeadContent />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,6 +57,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <Toaster richColors position="top-center" />
+        <AnalyticsScripts />
         <Scripts />
       </body>
     </html>
