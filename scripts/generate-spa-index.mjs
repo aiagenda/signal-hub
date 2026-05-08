@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readdirSync, statSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -12,14 +12,20 @@ if (!existsSync(assetsDir)) {
 
 const files = readdirSync(assetsDir);
 const css = files.find((f) => f.startsWith("styles-") && f.endsWith(".css"));
-const indexEntries = files.filter((f) => f.startsWith("index-") && f.endsWith(".js")).sort();
+const indexEntries = files.filter((f) => f.startsWith("index-") && f.endsWith(".js"));
 
 if (indexEntries.length === 0) {
   console.warn("[generate-spa-index] no index-*.js bundle found, skipping");
   process.exit(0);
 }
 
-const entry = indexEntries[indexEntries.length - 1];
+// Vite/TanStack can emit multiple index-*.js files; use the largest as app bootstrap entry.
+const entry = indexEntries
+  .map((name) => ({
+    name,
+    size: statSync(resolve(assetsDir, name)).size,
+  }))
+  .sort((a, b) => b.size - a.size)[0].name;
 
 const title = "Budapest Signal";
 const html = `<!doctype html>
