@@ -1,4 +1,4 @@
-import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   Database,
@@ -8,13 +8,10 @@ import {
   Megaphone,
   Activity,
   ArrowLeft,
-  LogOut,
   Gauge,
 } from "lucide-react";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
-import { Button } from "@/components/ui/button";
-import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 const items = [
   { to: "/admin", label: "Áttekintés", icon: LayoutDashboard, exact: true },
@@ -37,13 +34,6 @@ export function AdminLayout({
   children: React.ReactNode;
 }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const navigate = useNavigate();
-
-  async function signOut() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    await navigate({ to: "/admin/login", replace: true });
-  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -71,15 +61,6 @@ export function AdminLayout({
           })}
         </nav>
         <div className="border-t border-border/50 p-3 flex flex-col gap-2">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="w-full justify-start gap-2 text-xs text-muted-foreground"
-            onClick={() => void signOut()}
-          >
-            <LogOut className="h-3.5 w-3.5" /> Kilépés
-          </Button>
           <div className="flex items-center justify-between gap-2">
             <Link
               to="/"
@@ -101,9 +82,6 @@ export function AdminLayout({
               {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
             </div>
             <div className="flex items-center gap-2 md:hidden">
-              <Button type="button" variant="outline" size="sm" onClick={() => void signOut()}>
-                Kilépés
-              </Button>
               <ThemeToggle />
             </div>
           </div>
