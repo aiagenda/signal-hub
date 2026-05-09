@@ -29,7 +29,8 @@
     "sales:prepare-leads": "npm --prefix agents run sales:prepare-leads",
     "style:scout": "npm --prefix agents run style:scout",
     "style:distill": "npm --prefix agents run style:distill",
-    "agents:typecheck": "npm --prefix agents run typecheck"
+    "agents:typecheck": "npm --prefix agents run typecheck",
+    "agents:full-activation": "npm run agency:cycle --prefix agents -- --parallel-rss --publish-article --draft-social && npm run agency:tech --prefix agents -- --parallel-rss --publish-article --draft-social && npm run write:city-brief --prefix agents -- --publish-article --draft-social --skip-event-scout && npm run weekly:pipeline --prefix agents -- --skip-scout --publish-latest-draft"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

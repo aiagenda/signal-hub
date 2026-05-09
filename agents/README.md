@@ -82,10 +82,12 @@ npm install
 
 ### GitHub Actions
 
+- **Teljes aktiválás (manuális, egyszeri „minden menjen”):** [`.github/workflows/full-agency-activation.yml`](../.github/workflows/full-agency-activation.yml) — `workflow_dispatch`: **agency:cycle** (publish + social draft) → **agency:tech** → **write:city-brief** (esemény scout kihagyva) → **weekly:pipeline** (`--skip-scout --publish-latest-draft`). Helyben ugyanez: `npm run agents:full-activation` a repo gyökeréből (`agents/.env` kell).
 - **Weekly agents:** [`.github/workflows/weekly-agents.yml`](../.github/workflows/weekly-agents.yml) — hetente (hétfő 05:00 UTC): **RSS scout + heti kiadás vázlat** (`draft:edition`, szekciókkal — nem a napi longform `articles` pipeline).
 - **Daily city brief:** [`.github/workflows/daily-city-brief.yml`](../.github/workflows/daily-city-brief.yml) — **minden nap**: eseményscout + **1 városi/program cikk** (`write:city-brief`). Variables: `CITY_DAILY_PUBLISH`, `CITY_DAILY_SOCIAL_DRAFT`, `CITY_DAILY_SOCIAL_LIVE`.
 - **Tech agency (~3 nap):** [`.github/workflows/tech-agency-three-day.yml`](../.github/workflows/tech-agency-three-day.yml) — **havonta 1.,4.,7.,… (~3 nap)**: csak **global_ai / tool_radar / builder_insights** RSS + `tech_stack` témák + **1 longform** (`agency:tech`). Variables: `TECH_3DAY_PUBLISH`, `TECH_3DAY_SOCIAL_DRAFT`, `TECH_3DAY_SOCIAL_LIVE`.
 - Secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`. Opcionális: `RESEND_API_KEY`; repository **Variables**: pl. `APP_BASE_URL`, `NEWSLETTER_WEB_BASE_URL`, `RESEND_FROM`, `OPENAI_MODEL`.
+- **Ütemezett futásoknál** alapból sok pipeline csak vázlatot készít. Ha **minden ütemben** publikálást és social draftot akarsz, állítsd a repo **Variables** értékeit: `CITY_DAILY_PUBLISH=true`, `TECH_3DAY_PUBLISH=true`, `CITY_DAILY_SOCIAL_DRAFT=true`, `TECH_3DAY_SOCIAL_DRAFT=true` (és óvatosan `CITY_DAILY_SOCIAL_LIVE` / `TECH_3DAY_SOCIAL_LIVE` + `SOCIAL_*` secrets az éles queue-hoz).
 - Alap futás: **scout + draft only**. `AUTO_PUBLISH_LATEST_DRAFT` / `SEND_NEWSLETTER_AFTER_PUBLISH` csak tudatosan (workflow `env` blokkban uncomment).
 
 ## Deduplication
