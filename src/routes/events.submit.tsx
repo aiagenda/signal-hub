@@ -10,7 +10,7 @@ import { EVENT_CATEGORY_LABELS, HUNGARIAN_REGIONS } from "@/lib/event-types";
 export const Route = createFileRoute("/events/submit")({
   head: () => ({
     meta: [
-      { title: "Esemény beküldése — Programradar" },
+      { title: "Esemény beküldése — Happn" },
       {
         name: "description",
         content:

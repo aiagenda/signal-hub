@@ -18,12 +18,12 @@ export const Route = createFileRoute("/")({
     const count = loaderData?.events.length ?? 0;
     return {
       meta: [
-        { title: "Programradar — Események Magyarország-szerte" },
+        { title: "Happn — Mi történik most Magyarországon?" },
         {
           name: "description",
           content: `${count > 0 ? count + " közelgő esemény" : "Közelgő események"} országszerte: bulik, fesztiválok, konferenciák, meetupok, koncertek és több.`,
         },
-        { property: "og:title", content: "Programradar — Események Magyarország-szerte" },
+        { property: "og:title", content: "Happn — Mi történik most Magyarországon?" },
         { property: "og:type", content: "website" },
       ],
     };
@@ -42,34 +42,34 @@ function Home() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="relative overflow-hidden border-b border-border/50 bg-hero-gradient grain">
-        <div className="absolute inset-0 dot-grid opacity-50" />
+      <section className="relative overflow-hidden border-b border-border/40 bg-hero-gradient grain">
+        <div className="absolute inset-0 dot-grid opacity-40" />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-20 md:pt-32">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-            <Sparkles className="h-3 w-3 text-signal" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-signal/25 bg-signal-muted px-3 py-1 text-xs text-signal">
+            <Sparkles className="h-3 w-3" />
             <span>
               {events.length > 0
                 ? `${events.length} közelgő esemény országszerte`
-                : "Esemény-radar — hamarosan több program"}
+                : "Hamarosan több program — küldd be a sajátodat"}
             </span>
           </div>
 
           <h1 className="mt-7 max-w-4xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-            Mi történik <span className="text-gradient-signal">Magyarországon?</span>
+            Mi történik most <span className="text-gradient-signal">Magyarországon?</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Bulik, fesztiválok, konferenciák, meetupok és minden más — egy helyen. Budapesttől a
-            Balatonig, Debrecenig, Békéscsabáig.
+            Bulik, fesztiválok, meetupok, workshopok és minden más — egy helyen. Budapesttől a
+            Balatonig, Debrecenig, Pécsig.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="signal">
+            <Button asChild size="lg" variant="signal" className="rounded-full">
               <Link to="/events" search={eventSearch}>
                 Összes esemény <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="rounded-full">
               <Link to="/events/submit">
                 <Plus className="mr-1 h-4 w-4" /> Esemény beküldése
               </Link>
@@ -80,12 +80,12 @@ function Home() {
             <Stat value={String(events.length)} label="Közelgő esemény" />
             <Stat value={String(HUNGARIAN_REGIONS.length - 1)} label="Régió" />
             <Stat value={String(EVENT_CATEGORIES.length)} label="Kategória" />
-            <Stat value="Országos" label="Lefedettség" />
+            <Stat value="Ingyenes" label="Beküldés" />
           </div>
         </div>
       </section>
 
-      <section className="border-b border-border/50 py-16">
+      <section className="border-b border-border/40 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -94,7 +94,7 @@ function Home() {
                 Friss programok
               </h2>
             </div>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="rounded-full">
               <Link to="/events" search={eventSearch}>
                 Teljes lista <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
@@ -102,8 +102,8 @@ function Home() {
           </div>
 
           {preview.length === 0 ? (
-            <div className="mt-10 rounded-2xl border border-dashed border-border/70 bg-muted/20 p-12 text-center">
-              <CalendarDays className="mx-auto h-10 w-10 text-muted-foreground/50" />
+            <div className="mt-10 rounded-2xl border border-dashed border-border/60 bg-signal-muted/30 p-12 text-center">
+              <CalendarDays className="mx-auto h-10 w-10 text-signal/40" />
               <p className="mt-4 text-muted-foreground">
                 Még nincs publikált közelgő esemény. Küldd be a sajátodat!
               </p>
@@ -121,7 +121,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="border-b border-border/50 py-16">
+      <section className="border-b border-border/40 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Kategóriák</p>
           <h2 className="mt-3 font-display text-3xl">Mit keresel?</h2>
@@ -140,7 +140,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="border-b border-border/50 py-16">
+      <section className="border-b border-border/40 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Régiók</p>
           <h2 className="mt-3 font-display text-3xl">Hol történik?</h2>
@@ -150,9 +150,9 @@ function Home() {
                 key={r.value}
                 to="/events"
                 search={{ ...eventSearch, region: r.value }}
-                className="flex items-center gap-2 rounded-xl border border-border/60 bg-card/40 px-4 py-3 text-sm transition-colors hover:border-signal/40 hover:bg-card/70"
+                className="flex items-center gap-2 rounded-xl border border-border/50 bg-card/40 px-4 py-3 text-sm transition-colors hover:border-signal/40 hover:bg-signal-muted hover:text-signal"
               >
-                <MapPin className="h-4 w-4 shrink-0 text-signal/70" />
+                <MapPin className="h-4 w-4 shrink-0 text-signal/60" />
                 {r.label}
               </Link>
             ))}
@@ -173,7 +173,7 @@ function Home() {
             Konferencia, buli, fesztivál, meetup, workshop — minden típus jöhet. Moderálás után
             kerül fel az oldalra.
           </p>
-          <Button asChild size="lg" variant="signal" className="mt-8">
+          <Button asChild size="lg" variant="signal" className="mt-8 rounded-full">
             <Link to="/events/submit">
               <Plus className="mr-1 h-4 w-4" /> Esemény beküldése
             </Link>
@@ -189,7 +189,7 @@ function Home() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex items-baseline gap-2">
-      <span className="font-display text-lg text-foreground">{value}</span>
+      <span className="font-display text-lg text-signal">{value}</span>
       <span className="uppercase tracking-widest">{label}</span>
     </div>
   );

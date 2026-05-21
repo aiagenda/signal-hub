@@ -11,11 +11,11 @@ export function Logo({ className = "" }: { className?: string }) {
         <span className="relative h-2 w-2 rounded-full bg-background" />
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[15px] font-medium tracking-tight text-foreground">
-          Program<span className="text-gradient-signal">radar</span>
+        <span className="font-display text-[17px] font-normal tracking-tight text-foreground">
+          ha<span className="text-gradient-signal">pp</span>n
         </span>
         <span className="mt-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-          Események HU
+          Események · HU
         </span>
       </span>
     </Link>

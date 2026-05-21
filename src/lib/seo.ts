@@ -21,7 +21,7 @@ export function buildNewsArticleJsonLd(edition: Edition): Record<string, unknown
     url,
     publisher: {
       "@type": "Organization",
-      name: "Budapest Signal",
+      name: "Happn",
       url: getPublicSiteUrl(),
       logo: {
         "@type": "ImageObject",
@@ -29,7 +29,7 @@ export function buildNewsArticleJsonLd(edition: Edition): Record<string, unknown
       },
     },
     image: [getOgImageAbsoluteUrl()],
-    author: { "@type": "Organization", name: "Budapest Signal" },
+    author: { "@type": "Organization", name: "Happn" },
   };
 }
 
@@ -52,7 +52,7 @@ export function buildLongformArticleJsonLd(article: Article): Record<string, unk
     url,
     publisher: {
       "@type": "Organization",
-      name: "Budapest Signal",
+      name: "Happn",
       url: getPublicSiteUrl(),
       logo: {
         "@type": "ImageObject",
@@ -60,7 +60,7 @@ export function buildLongformArticleJsonLd(article: Article): Record<string, unk
       },
     },
     image: [getOgImageAbsoluteUrl()],
-    author: { "@type": "Organization", name: "Budapest Signal" },
+    author: { "@type": "Organization", name: "Happn" },
     keywords: article.keywords,
   };
 }

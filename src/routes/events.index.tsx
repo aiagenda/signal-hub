@@ -26,7 +26,7 @@ export const Route = createFileRoute("/events/")({
     const count = loaderData?.events.length ?? 0;
     return {
       meta: [
-        { title: "Programok & Események — Magyarország" },
+        { title: "Programok & Események — Happn" },
         {
           name: "description",
           content: `${count > 0 ? count + " közelgő esemény" : "Közelgő események"} Magyarország-szerte: bulik, fesztiválok, konferenciák, meetupok, koncertek és több.`,

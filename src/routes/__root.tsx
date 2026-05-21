@@ -15,15 +15,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Budapest Signal — Globális MI. Helyi lépések. Budapesti hétvégék." },
+      { title: "Happn — Mi történik most Magyarországon?" },
       {
         name: "description",
         content:
-          "Heti hírlevél a globális MI-ről, a fontos eszközökről, a budapesti tech- és üzleti hírekről, és a hétvége legjobb programjairól.",
+          "Esemény-gyűjtő országszerte: bulik, fesztiválok, konferenciák, meetupok, koncertek és több — egy helyen.",
       },
-      { name: "author", content: "Budapest Signal" },
-      { property: "og:title", content: "Budapest Signal" },
-      { property: "og:description", content: "Globális MI. Helyi lépések. Budapesti hétvégék." },
+      { name: "author", content: "Happn" },
+      { property: "og:title", content: "Happn — Események Magyarországon" },
+      {
+        property: "og:description",
+        content: "Mi történik most Magyarországon? Bulik, fesztiválok, meetupok — egy helyen.",
+      },
       { property: "og:locale", content: "hu_HU" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: siteUrl },

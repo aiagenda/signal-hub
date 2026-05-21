@@ -3,13 +3,13 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-background/40">
+    <footer className="border-t border-border/40 bg-background/40">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Esemény-gyűjtő országszerte: bulik, fesztiválok, konferenciák, meetupok és minden más —
-            egy helyen.
+            Egy hely. Egy ország. Minden este. — bulik, fesztiválok, meetupok, workshopok és minden
+            más program Magyarországon, egy helyen.
           </p>
         </div>
 
@@ -34,24 +34,12 @@ export function Footer() {
             Legyél partner
           </FooterLink>
         </FooterCol>
-
-        <FooterCol title="Belső">
-          <FooterLink to="/admin">Admin</FooterLink>
-          <FooterLink to="/admin/edition-builder">Kiadás-szerkesztő</FooterLink>
-        </FooterCol>
       </div>
 
-      <div className="border-t border-border/50">
+      <div className="border-t border-border/40">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div className="space-y-2">
-            <p>© {new Date().getFullYear()} Programradar. Események országszerte.</p>
-            <p className="max-w-xl text-[11px] leading-relaxed opacity-90">
-              Opcionális, anonimizált látogatásmérés (Plausible vagy GA4) csak akkor töltődik be, ha
-              a környezeti változókban bekapcsolod — részletek az „Adat & mérés” szekcióban a Rólunk
-              oldalon.
-            </p>
-          </div>
-          <p className="font-mono shrink-0">v1.0 · heti · szerda 07:00 CET</p>
+          <p>© {new Date().getFullYear()} Happn — Események Magyarországon.</p>
+          <p className="font-mono shrink-0">happn.hu</p>
         </div>
       </div>
     </footer>
@@ -88,7 +76,7 @@ function FooterLink({
         to={to}
         hash={hash}
         search={search}
-        className="text-sm text-foreground/80 transition-colors hover:text-signal"
+        className="text-sm text-foreground/70 transition-colors hover:text-signal"
       >
         {children}
       </Link>
