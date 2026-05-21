@@ -176,30 +176,38 @@ export class EventScoutAgent {
       try {
         const fields = await extractEventFields(this.openai, this.model, r);
 
-        const { error: upErr } = await this.supabase.from("events").upsert(
-          {
-            source_content_item_id: r.id,
-            title: String(r.title),
-            summary: r.summary ? String(r.summary) : null,
-            source_url: r.canonical_url ? String(r.canonical_url) : null,
-            status: "draft",
-            starts_at: fields.starts_at,
-            ends_at: fields.ends_at,
-            venue: fields.venue,
-            city: fields.city,
-            region: fields.region,
-            price_info: fields.price_info,
-            ticket_url: fields.ticket_url,
-            organizer_name: fields.organizer_name,
-            category: fields.category,
-            tags: fields.tags,
-            metadata: { category: String(r.category), generated_by: "EventScoutAgent" },
-          },
-          {
-            onConflict: "source_content_item_id",
-            ignoreDuplicates: false,
-          },
-        );
+        const { data: existing } = await this.supabase
+          .from("events")
+          .select("id, status")
+          .eq("source_content_item_id", r.id)
+          .maybeSingle();
+
+        const preserveStatus =
+          existing?.status === "published" || existing?.status === "archived";
+
+        const row: Record<string, unknown> = {
+          source_content_item_id: r.id,
+          title: String(r.title),
+          summary: r.summary ? String(r.summary) : null,
+          source_url: r.canonical_url ? String(r.canonical_url) : null,
+          starts_at: fields.starts_at,
+          ends_at: fields.ends_at,
+          venue: fields.venue,
+          city: fields.city,
+          region: fields.region,
+          price_info: fields.price_info,
+          ticket_url: fields.ticket_url,
+          organizer_name: fields.organizer_name,
+          category: fields.category,
+          tags: fields.tags,
+          metadata: { category: String(r.category), generated_by: "EventScoutAgent" },
+        };
+        if (!preserveStatus) row.status = "draft";
+
+        const { error: upErr } = await this.supabase.from("events").upsert(row, {
+          onConflict: "source_content_item_id",
+          ignoreDuplicates: false,
+        });
         if (upErr) throw new Error(`EventScoutAgent upsert failed: ${upErr.message}`);
         upserted += 1;
       } catch (e) {
