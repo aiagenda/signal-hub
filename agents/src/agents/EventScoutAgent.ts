@@ -50,7 +50,6 @@ const REGION_CITY_MAP: Record<string, string> = {
   veszprém: "veszprem",
   veszprem: "veszprem",
   eger: "eger",
-  pécs: "pecs",
   balaton: "balaton",
   siófok: "balaton",
   siofok: "balaton",
