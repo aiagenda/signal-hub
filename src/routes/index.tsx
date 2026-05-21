@@ -1,261 +1,183 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, CalendarDays, MapPin, Plus, Sparkles } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { SubscribeForm } from "@/components/SubscribeForm";
-import { SectionCard } from "@/components/SectionCard";
-import { getPublicEditionsList } from "@/lib/editions-data";
+import { EventCard, CategoryBadge } from "@/components/EventCard";
 import { Button } from "@/components/ui/button";
-import {
-  Globe2,
-  Wrench,
-  Lightbulb,
-  Building2,
-  MapPin,
-  Sparkles,
-  ArrowRight,
-  Radio,
-} from "lucide-react";
+import { getPublicEventsList } from "@/lib/events-data";
+import { EVENT_CATEGORIES, HUNGARIAN_REGIONS } from "@/lib/event-types";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const list = await getPublicEditionsList();
-    return { featured: list[0] ?? null };
+    const events = await getPublicEventsList({
+      from: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    });
+    return { events, preview: events.slice(0, 12) };
   },
-  head: () => ({
-    meta: [
-      { title: "Budapest Signal — Globális MI. Helyi lépések. Budapesti hétvégék." },
-      {
-        name: "description",
-        content:
-          "Heti jel azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni.",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const count = loaderData?.events.length ?? 0;
+    return {
+      meta: [
+        { title: "Programradar — Események Magyarország-szerte" },
+        {
+          name: "description",
+          content: `${count > 0 ? count + " közelgő esemény" : "Közelgő események"} országszerte: bulik, fesztiválok, konferenciák, meetupok, koncertek és több.`,
+        },
+        { property: "og:title", content: "Programradar — Események Magyarország-szerte" },
+        { property: "og:type", content: "website" },
+      ],
+    };
+  },
   component: Home,
 });
 
-const sections = [
-  {
-    icon: Globe2,
-    label: "01",
-    title: "Globális MI jel",
-    description:
-      "A hét legfontosabb modell-, szabályozási és platform-mozgásai — leszűrve arra, ami megváltoztatja a roadmapedet.",
-  },
-  {
-    icon: Wrench,
-    label: "02",
-    title: "Eszköz-radar",
-    description: "Az éppen érkező eszközök, amelyek tényleg megérnek egy értékelési órát.",
-  },
-  {
-    icon: Lightbulb,
-    label: "03",
-    title: "Építő-szemszög",
-    description:
-      "Egy rövid, véleményes elemzés CEE-ben építő operátoroktól — árazás, toborzás, GTM.",
-  },
-  {
-    icon: Building2,
-    label: "04",
-    title: "Budapesti tech & üzlet",
-    description:
-      "Finanszírozási körök, kinevezések, nyitások és csendes lépések, amiket nem fogsz elcsípni a timelineodon.",
-  },
-  {
-    icon: MapPin,
-    label: "05",
-    title: "Hétvégi jel",
-    description:
-      "Kurált tippek Budapest és Pest megye területéről. Hová érdemes ténylegesen elmenni.",
-  },
-  {
-    icon: Sparkles,
-    label: "06",
-    title: "Kiemelt partnerek",
-    description:
-      "Pár cég, amiben bízunk — szerkesztői tisztelettel bemutatva, sosem szponzorált zaj.",
-  },
-];
+const eventSearch = { region: undefined, category: undefined, from: undefined } as const;
 
 function Home() {
-  const { featured } = Route.useLoaderData();
+  const { events, preview } = Route.useLoaderData();
+
+  const cities = [...new Set(events.map((e) => e.city).filter(Boolean))].slice(0, 6);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* HERO */}
-      <section
-        id="subscribe"
-        className="relative overflow-hidden border-b border-border/50 bg-hero-gradient grain"
-      >
+      <section className="relative overflow-hidden border-b border-border/50 bg-hero-gradient grain">
         <div className="absolute inset-0 dot-grid opacity-50" />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-20 md:pt-32">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-            <Radio className="h-3 w-3 text-signal animate-pulse-signal" />
+            <Sparkles className="h-3 w-3 text-signal" />
             <span>
-              {featured
-                ? `Megjelent a № ${String(featured.number).padStart(3, "0")}. kiadás`
-                : "Hamarosan — első kiadás"}
+              {events.length > 0
+                ? `${events.length} közelgő esemény országszerte`
+                : "Esemény-radar — hamarosan több program"}
             </span>
           </div>
 
           <h1 className="mt-7 max-w-4xl font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">
-            Globális MI. <span className="text-muted-foreground">Helyi lépések.</span>{" "}
-            <span className="text-gradient-signal">Budapesti hétvégék.</span>
+            Mi történik <span className="text-gradient-signal">Magyarországon?</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Heti jel azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni — MI,
-            tech, üzlet, események és kurált hétvégi tippek Budapestről és környékéről.
+            Bulik, fesztiválok, konferenciák, meetupok és minden más — egy helyen. Budapesttől a
+            Balatonig, Debrecenig, Békéscsabáig.
           </p>
 
-          <div className="mt-9">
-            <SubscribeForm />
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Button asChild size="lg" variant="signal">
+              <Link to="/events" search={eventSearch}>
+                Összes esemény <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link to="/events/submit">
+                <Plus className="mr-1 h-4 w-4" /> Esemény beküldése
+              </Link>
+            </Button>
           </div>
 
           <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-muted-foreground">
-            <Stat value="8 420" label="Olvasó" />
-            <Stat value="62%" label="Megnyitási arány" />
-            <Stat value="Sze 07:00" label="A postaládádban" />
-            <Stat value="Budapest" label="Innen kuráljuk" />
+            <Stat value={String(events.length)} label="Közelgő esemény" />
+            <Stat value={String(HUNGARIAN_REGIONS.length - 1)} label="Régió" />
+            <Stat value={String(EVENT_CATEGORIES.length)} label="Kategória" />
+            <Stat value="Országos" label="Lefedettség" />
           </div>
         </div>
       </section>
 
-      {/* WHAT YOU GET */}
-      <section className="border-b border-border/50 py-24">
-        <div className="mx-auto max-w-6xl px-5">
-          <Header2 eyebrow="Mit kapsz" title="Hat jel. Egy éles briefing." />
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {sections.map((s) => (
-              <SectionCard key={s.title} {...s} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* LATEST EDITION */}
-      <section className="border-b border-border/50 py-24">
+      <section className="border-b border-border/50 py-16">
         <div className="mx-auto max-w-6xl px-5">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <Header2 eyebrow="Legfrissebb kiadás" title="Egy pillantás erre a hétre." />
-            {featured ? (
-              <Button asChild variant="outline">
-                <Link to="/archive/$slug" params={{ slug: featured.slug }}>
-                  Teljes kiadás <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
-              </Button>
-            ) : null}
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Közelgő</p>
+              <h2 className="mt-3 font-display text-4xl leading-tight md:text-5xl">
+                Friss programok
+              </h2>
+            </div>
+            <Button asChild variant="outline">
+              <Link to="/events" search={eventSearch}>
+                Teljes lista <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
 
-          {featured ? (
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {featured.sections.slice(0, 4).map((sec) => (
-                <div
-                  key={sec.key}
-                  className="rounded-2xl border border-border/60 bg-card-gradient p-7 shadow-card"
-                >
-                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-signal">
-                    <span className="h-1.5 w-1.5 rounded-full bg-signal" />
-                    {sec.title}
-                  </div>
-                  <ul className="mt-5 flex flex-col divide-y divide-border/50">
-                    {sec.items.slice(0, 2).map((item) => (
-                      <li key={item.id ?? item.title} className="py-3 first:pt-0 last:pb-0">
-                        <div className="font-display text-lg leading-snug text-foreground">
-                          {item.title}
-                        </div>
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                          {item.summary}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+          {preview.length === 0 ? (
+            <div className="mt-10 rounded-2xl border border-dashed border-border/70 bg-muted/20 p-12 text-center">
+              <CalendarDays className="mx-auto h-10 w-10 text-muted-foreground/50" />
+              <p className="mt-4 text-muted-foreground">
+                Még nincs publikált közelgő esemény. Küldd be a sajátodat!
+              </p>
+              <Button asChild className="mt-6" variant="signal">
+                <Link to="/events/submit">Esemény beküldése</Link>
+              </Button>
             </div>
           ) : (
-            <div className="mt-10 rounded-2xl border border-dashed border-border/70 bg-muted/20 p-10 text-center">
-              <p className="text-muted-foreground">
-                Még nincs publikált kiadás az adatbázisban. Iratkozz fel felül — szólunk, amint
-                megjelenik az első jel, vagy állítsd be a{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-                  VITE_USE_MOCK_EDITIONS=true
-                </code>{" "}
-                értéket demó tartalomhoz.
-              </p>
-              <div className="mt-6 flex justify-center">
-                <Button asChild variant="outline">
-                  <Link to="/archive">Archívum</Link>
-                </Button>
-              </div>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {preview.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
             </div>
           )}
         </div>
       </section>
 
-      {/* AUDIENCE */}
-      <section className="border-b border-border/50 py-24">
-        <div className="mx-auto max-w-5xl px-5 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Kiknek</p>
-          <h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
-            Alapítók, építők, marketingesek, alkotók, expatok és a
-            <span className="text-muted-foreground"> kíváncsi emberek, </span>
-            akik Budapestet alakítják.
-          </h2>
-          <div className="mt-10 flex flex-wrap justify-center gap-2">
-            {[
-              "Alapítók",
-              "Mérnökök",
-              "Termékmenedzserek",
-              "Marketingesek",
-              "Designerek",
-              "Befektetők",
-              "Expatok",
-              "Kurátorok",
-              "Operátorok",
-            ].map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-border/60 bg-card/40 px-4 py-1.5 text-sm text-foreground/80 backdrop-blur"
+      <section className="border-b border-border/50 py-16">
+        <div className="mx-auto max-w-6xl px-5">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Kategóriák</p>
+          <h2 className="mt-3 font-display text-3xl">Mit keresel?</h2>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {EVENT_CATEGORIES.map((cat) => (
+              <Link
+                key={cat}
+                to="/events"
+                search={{ ...eventSearch, category: cat }}
+                className="transition-transform hover:scale-105"
               >
-                {t}
-              </span>
+                <CategoryBadge category={cat} />
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SPONSOR */}
-      <section className="border-b border-border/50 py-24">
+      <section className="border-b border-border/50 py-16">
         <div className="mx-auto max-w-6xl px-5">
-          <div className="relative overflow-hidden rounded-3xl border border-signal/30 bg-card-gradient p-10 shadow-glow md:p-16">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-signal/20 blur-3xl" />
-            <div className="relative grid gap-8 md:grid-cols-[1.4fr_1fr] md:items-center">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">
-                  Partnereknek
-                </p>
-                <h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
-                  Érd el Budapest MI-, tech- és üzleti közönségét.
-                </h2>
-                <p className="mt-4 max-w-xl text-muted-foreground">
-                  Natív, szerkesztői színvonalú elhelyezések egy briefingben, amit az emberek
-                  tényleg megnyitnak. Nincs banner, nincs csalogató — csak tisztelet az olvasó és a
-                  márkád iránt.
-                </p>
-              </div>
-              <div className="flex md:justify-end">
-                <Button asChild size="lg" variant="signal">
-                  <Link to="/advertise">
-                    Hirdess nálunk <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Régiók</p>
+          <h2 className="mt-3 font-display text-3xl">Hol történik?</h2>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {HUNGARIAN_REGIONS.filter((r) => r.value !== "egyeb").map((r) => (
+              <Link
+                key={r.value}
+                to="/events"
+                search={{ ...eventSearch, region: r.value }}
+                className="flex items-center gap-2 rounded-xl border border-border/60 bg-card/40 px-4 py-3 text-sm transition-colors hover:border-signal/40 hover:bg-card/70"
+              >
+                <MapPin className="h-4 w-4 shrink-0 text-signal/70" />
+                {r.label}
+              </Link>
+            ))}
           </div>
+          {cities.length > 0 && (
+            <p className="mt-6 text-sm text-muted-foreground">
+              Közelgő városok: {cities.join(" · ")}
+            </p>
+          )}
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="mx-auto max-w-3xl px-5 text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Szervező vagy?</p>
+          <h2 className="mt-3 font-display text-4xl">Küldd be az eseményedet — ingyen.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Konferencia, buli, fesztivál, meetup, workshop — minden típus jöhet. Moderálás után
+            kerül fel az oldalra.
+          </p>
+          <Button asChild size="lg" variant="signal" className="mt-8">
+            <Link to="/events/submit">
+              <Plus className="mr-1 h-4 w-4" /> Esemény beküldése
+            </Link>
+          </Button>
         </div>
       </section>
 
@@ -269,15 +191,6 @@ function Stat({ value, label }: { value: string; label: string }) {
     <div className="flex items-baseline gap-2">
       <span className="font-display text-lg text-foreground">{value}</span>
       <span className="uppercase tracking-widest">{label}</span>
-    </div>
-  );
-}
-
-function Header2({ eyebrow, title }: { eyebrow: string; title: string }) {
-  return (
-    <div className="max-w-2xl">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">{eyebrow}</p>
-      <h2 className="mt-3 font-display text-4xl leading-tight md:text-5xl">{title}</h2>
     </div>
   );
 }

@@ -8,13 +8,16 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Heti briefing azoknak, akik globálisan akarnak előrébb járni és helyben okosabban lépni
-            — Budapestről, mindenkinek, aki itt él, dolgozik vagy épít.
+            Esemény-gyűjtő országszerte: bulik, fesztiválok, konferenciák, meetupok és minden más —
+            egy helyen.
           </p>
         </div>
 
         <FooterCol title="Programok">
-          <FooterLink to="/events" search={{ region: undefined, category: undefined, from: undefined }}>
+          <FooterLink
+            to="/events"
+            search={{ region: undefined, category: undefined, from: undefined }}
+          >
             Események
           </FooterLink>
           <FooterLink to="/events/submit">Esemény beküldése</FooterLink>
@@ -41,9 +44,7 @@ export function Footer() {
       <div className="border-t border-border/50">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
           <div className="space-y-2">
-            <p>
-              © {new Date().getFullYear()} Budapest Signal. Budapesten kurálva, mindenhol olvasva.
-            </p>
+            <p>© {new Date().getFullYear()} Programradar. Események országszerte.</p>
             <p className="max-w-xl text-[11px] leading-relaxed opacity-90">
               Opcionális, anonimizált látogatásmérés (Plausible vagy GA4) csak akkor töltődik be, ha
               a környezeti változókban bekapcsolod — részletek az „Adat & mérés” szekcióban a Rólunk

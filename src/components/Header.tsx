@@ -43,9 +43,7 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
           <Button asChild size="sm" variant="signal">
-            <Link to="/" hash="subscribe">
-              Feliratkozás
-            </Link>
+            <Link to="/events/submit">Esemény beküldése</Link>
           </Button>
         </div>
 
@@ -83,8 +81,8 @@ export function Header() {
               </Link>
             ))}
             <Button asChild size="sm" variant="signal" className="mt-2">
-              <Link to="/" hash="subscribe" onClick={() => setOpen(false)}>
-                Feliratkozás
+              <Link to="/events/submit" onClick={() => setOpen(false)}>
+                Esemény beküldése
               </Link>
             </Button>
           </div>
