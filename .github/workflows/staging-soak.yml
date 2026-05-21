@@ -25,18 +25,20 @@ jobs:
       - name: Full agency cycle (staging dry)
         run: npm run agency:cycle -- --parallel-rss --draft-social
         env:
-          SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
-          OPENAI_API_KEY: ${{ secrets.STAGING_OPENAI_API_KEY }}
-          APP_BASE_URL: ${{ secrets.STAGING_APP_BASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          APP_BASE_URL: ${{ vars.APP_BASE_URL }}
           SOCIAL_POST_DRY_RUN: "true"
           PIPELINE_DISABLE_EXTERNAL_POSTS: "true"
       - name: Process social queue (dry)
         run: npm run social:queue -- --include-drafts --limit=40
         env:
-          SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
-          OPENAI_API_KEY: ${{ secrets.STAGING_OPENAI_API_KEY }}
-          APP_BASE_URL: ${{ secrets.STAGING_APP_BASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          APP_BASE_URL: ${{ vars.APP_BASE_URL }}
           SOCIAL_POST_DRY_RUN: "true"
           PIPELINE_DISABLE_EXTERNAL_POSTS: "true"

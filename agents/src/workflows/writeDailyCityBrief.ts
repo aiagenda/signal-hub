@@ -27,8 +27,13 @@ async function main() {
 
   try {
     if (!args.skipEventScout) {
-      const scout = new EventScoutAgent(env, { supabase });
-      await scout.run({ lookbackDays: 16, limit: 200 });
+      try {
+        const scout = new EventScoutAgent(env, { supabase });
+        await scout.run({ lookbackDays: 16, limit: 200 });
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        log.warn("city_brief_event_scout_failed", { message: msg });
+      }
     }
 
     const writer = new EventsBriefWriterAgent(env, { supabase });
