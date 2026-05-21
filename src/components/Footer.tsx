@@ -13,6 +13,13 @@ export function Footer() {
           </p>
         </div>
 
+        <FooterCol title="Programok">
+          <FooterLink to="/events" search={{ region: undefined, category: undefined, from: undefined }}>
+            Események
+          </FooterLink>
+          <FooterLink to="/events/submit">Esemény beküldése</FooterLink>
+        </FooterCol>
+
         <FooterCol title="Olvasás">
           <FooterLink to="/archive">Archívum</FooterLink>
           <FooterLink to="/about">Rólunk</FooterLink>
@@ -64,10 +71,14 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
 function FooterLink({
   to,
   hash,
+  search,
   children,
 }: {
-  to: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  to: any;
   hash?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  search?: any;
   children: React.ReactNode;
 }) {
   return (
@@ -75,6 +86,7 @@ function FooterLink({
       <Link
         to={to}
         hash={hash}
+        search={search}
         className="text-sm text-foreground/80 transition-colors hover:text-signal"
       >
         {children}

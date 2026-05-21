@@ -14,9 +14,12 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as AdvertiseRouteImport } from './routes/advertise'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
 import { Route as ArchiveIndexRouteImport } from './routes/archive.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as EventsSubmitRouteImport } from './routes/events.submit'
+import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 import { Route as ArchiveSlugRouteImport } from './routes/archive.$slug'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
@@ -53,6 +56,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
   id: '/articles/',
   path: '/articles/',
@@ -66,6 +74,16 @@ const ArchiveIndexRoute = ArchiveIndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSubmitRoute = EventsSubmitRouteImport.update({
+  id: '/events/submit',
+  path: '/events/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
@@ -135,9 +153,12 @@ export interface FileRoutesByFullPath {
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/submit': typeof EventsSubmitRoute
   '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
   '/articles/': typeof ArticlesIndexRoute
+  '/events/': typeof EventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -155,9 +176,12 @@ export interface FileRoutesByTo {
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/submit': typeof EventsSubmitRoute
   '/admin': typeof AdminIndexRoute
   '/archive': typeof ArchiveIndexRoute
   '/articles': typeof ArticlesIndexRoute
+  '/events': typeof EventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -176,9 +200,12 @@ export interface FileRoutesById {
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/archive/$slug': typeof ArchiveSlugRoute
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/events/submit': typeof EventsSubmitRoute
   '/admin/': typeof AdminIndexRoute
   '/archive/': typeof ArchiveIndexRoute
   '/articles/': typeof ArticlesIndexRoute
+  '/events/': typeof EventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -198,9 +225,12 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/archive/$slug'
     | '/articles/$slug'
+    | '/events/$slug'
+    | '/events/submit'
     | '/admin/'
     | '/archive/'
     | '/articles/'
+    | '/events/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -218,9 +248,12 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/archive/$slug'
     | '/articles/$slug'
+    | '/events/$slug'
+    | '/events/submit'
     | '/admin'
     | '/archive'
     | '/articles'
+    | '/events'
   id:
     | '__root__'
     | '/'
@@ -238,9 +271,12 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/archive/$slug'
     | '/articles/$slug'
+    | '/events/$slug'
+    | '/events/submit'
     | '/admin/'
     | '/archive/'
     | '/articles/'
+    | '/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,9 +295,12 @@ export interface RootRouteChildren {
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   ArchiveSlugRoute: typeof ArchiveSlugRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
+  EventsSubmitRoute: typeof EventsSubmitRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ArchiveIndexRoute: typeof ArchiveIndexRoute
   ArticlesIndexRoute: typeof ArticlesIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -301,6 +340,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles/': {
       id: '/articles/'
       path: '/articles'
@@ -320,6 +366,20 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/submit': {
+      id: '/events/submit'
+      path: '/events/submit'
+      fullPath: '/events/submit'
+      preLoaderRoute: typeof EventsSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles/$slug': {
@@ -411,9 +471,12 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSponsorsRoute: AdminSponsorsRoute,
   ArchiveSlugRoute: ArchiveSlugRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
+  EventsSubmitRoute: EventsSubmitRoute,
   AdminIndexRoute: AdminIndexRoute,
   ArchiveIndexRoute: ArchiveIndexRoute,
   ArticlesIndexRoute: ArticlesIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
